@@ -6,34 +6,26 @@
     this.color = color;
     this.height = height;
     this.width = width;
-    this.isJumping = false;
-    this.draw(field);
+    this.isUp = false;
+
   }
 
-  draw(field) {
-    field.fillStyle = this.color;
-    field.fillRect(this.x, this.y, this.width, this.height);
-  }
 
-  jump(field) {
+  jump() {
 
-
-    var that = this;
-    let interval = setInterval(function(){
-
-      field.clearRect(that.x - 1, that.y + 1, that.width + 1, that.height + 1);
-
-      if (that.y >= 300) {
-        that.y -= 1;
-      } else {
-        clearInterval( interval )
-        that.y = 450;
+    let animation = requestAnimationFrame(() => this.jump());
+    this.y -= 1;
+    if (this.isUp)
+    {
+      if (this.y < 350)
+      {
+        this.y = 450;
+        this.isUp = false;
+        cancelAnimationFrame(animation);
       }
-      that.draw(field);
-    }, 4)
+    }
 
   }
-
 }
 
 
